@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check application status</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="/" aria-current="page">Check status</a></li>
+        <li><a href="#help">Help</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <h1>Check your application status</h1>
+
+    <form id="status-form" novalidate>
+      <label for="file-number">File number</label>
+      <p id="file-number-hint" class="hint">Printed on your receipt. Example: HYD1234567</p>
+      <input id="file-number" name="fileNumber" type="text"
+             autocomplete="off" spellcheck="false"
+             aria-describedby="file-number-hint file-number-error"
+             required>
+      <p id="file-number-error" class="error" hidden></p>
+      <button type="submit">Check status</button>
+    </form>
+
+    <section id="result" aria-live="polite" aria-atomic="true"></section>
+
+    <section id="help">
+      <h2>Need help?</h2>
+      <p>If your file number is not recognised, check it against your receipt and try again.</p>
+    </section>
+  </main>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

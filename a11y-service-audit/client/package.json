@@ -1,0 +1,6 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static accessible front end, served by the server package"
+}
