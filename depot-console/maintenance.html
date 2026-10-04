@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schedule maintenance | Depot Console</title>
+  <meta name="description" content="Depot Console: maintenance dashboard for the Kukatpally bus depot.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="components/base.css">
+  <link rel="stylesheet" href="components/layout.css">
+  <link rel="stylesheet" href="components/form.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand__name">Depot Console</span>
+      <span class="brand__depot">Kukatpally bus depot</span>
+    </a>
+
+    <button class="button sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+
+    <form class="header-search" role="search" action="vehicles.html" method="get">
+      <label class="visually-hidden" for="site-search">Search vehicles by registration number</label>
+      <input id="site-search" name="q" type="search" placeholder="e.g. TG09 Z 4127" autocomplete="off">
+      <button class="button" type="submit">Search</button>
+    </form>
+
+    <p class="signed-in">Signed in as R. Kiran, shift supervisor</p>
+  </header>
+
+  <div class="shell">
+    <aside id="sidebar" class="sidebar">
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="vehicles.html">Fleet</a></li>
+          <li><a href="maintenance.html" aria-current="page">Schedule maintenance</a></li>
+        </ul>
+      </nav>
+
+      <section class="sidebar-note" aria-labelledby="depot-hours-heading">
+        <h2 id="depot-hours-heading">Workshop hours</h2>
+        <p>Open <time datetime="06:00">6:00</time> to <time datetime="22:00">22:00</time>. Breakdowns outside these hours go to the night duty line.</p>
+      </section>
+    </aside>
+
+    <main id="main" tabindex="-1">
+      <h1>Schedule maintenance</h1>
+      <p class="page-intro">Book a bus into a workshop bay. Fields marked <span class="required-mark" aria-hidden="true">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
+
+      <p id="page-status" class="toast" role="status"></p>
+
+      <form class="form" action="#" method="post" novalidate data-validate
+            data-success-message="Maintenance scheduled. The bay booking now shows on the overview.">
+
+        <div class="error-summary" tabindex="-1" hidden>
+          <h2>Fix these before scheduling</h2>
+          <ul></ul>
+        </div>
+
+        <fieldset>
+          <legend>Bus</legend>
+          <div class="field">
+            <label for="vehicle">Bus <span class="required-mark" aria-hidden="true">*</span></label>
+            <select id="vehicle" name="vehicle" required autocomplete="off"
+                    data-error="Choose a bus" data-error-target="vehicle-error" aria-describedby="vehicle-error">
+              <option value="">Choose a bus</option>
+              <option value="TG09 Z 1873">TG09 Z 1873, Ashok Leyland Viking</option>
+              <option value="TG09 Z 0942">TG09 Z 0942, Tata Starbus</option>
+              <option value="TG09 Z 4127">TG09 Z 4127, Ashok Leyland Viking</option>
+              <option value="TG09 Z 3381">TG09 Z 3381, Eicher Skyline</option>
+              <option value="TG09 Z 7730">TG09 Z 7730, Olectra eBus</option>
+              <option value="TG09 Z 5115">TG09 Z 5115, Tata Starbus</option>
+            </select>
+            <p id="vehicle-error" class="error-message"></p>
+          </div>
+          <div class="field">
+            <label for="odometer">Current odometer reading (km) <span class="required-mark" aria-hidden="true">*</span></label>
+            <span id="odometer-hint" class="hint">Whole kilometres, read from the dashboard.</span>
+            <input id="odometer" class="input--short" name="odometer" type="number" required min="0" max="2000000" step="1" inputmode="numeric"
+                   data-error="Enter the odometer reading in whole kilometres" data-error-target="odometer-error"
+                   aria-describedby="odometer-hint odometer-error">
+            <p id="odometer-error" class="error-message"></p>
+          </div>
+        </fieldset>
+
+        <fieldset data-group>
+          <legend>Type of work <span class="required-mark" aria-hidden="true">*</span></legend>
+          <ul class="choices">
+              <li class="choice"><input id="work-service" type="radio" name="work" value="service" required data-error="Choose the type of work" data-error-target="work-error" aria-describedby="work-error"><label for="work-service">Routine service</label></li>
+              <li class="choice"><input id="work-brakes" type="radio" name="work" value="brakes" aria-describedby="work-error"><label for="work-brakes">Brake inspection</label></li>
+              <li class="choice"><input id="work-tyres" type="radio" name="work" value="tyres" aria-describedby="work-error"><label for="work-tyres">Tyre replacement</label></li>
+              <li class="choice"><input id="work-engine" type="radio" name="work" value="engine" aria-describedby="work-error"><label for="work-engine">Engine repair</label></li>
+          </ul>
+          <p id="work-error" class="error-message"></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Parts to reserve <span class="optional">(optional)</span></legend>
+          <p class="fieldset-hint" id="parts-hint">The store will set these aside before the bus arrives.</p>
+          <ul class="choices" aria-describedby="parts-hint">
+              <li class="choice"><input id="part-pads" type="checkbox" name="parts" value="brake-pads"><label for="part-pads">Brake pads</label></li>
+              <li class="choice"><input id="part-tyres" type="checkbox" name="parts" value="tyres"><label for="part-tyres">Tyres</label></li>
+              <li class="choice"><input id="part-filter" type="checkbox" name="parts" value="oil-filter"><label for="part-filter">Oil filter</label></li>
+              <li class="choice"><input id="part-battery" type="checkbox" name="parts" value="battery"><label for="part-battery">Battery</label></li>
+          </ul>
+        </fieldset>
+
+        <fieldset>
+          <legend>When and where</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="date">Date <span class="required-mark" aria-hidden="true">*</span></label>
+              <span id="date-hint" class="hint">From today onwards.</span>
+              <input id="date" name="date" type="date" required min="2026-10-04"
+                     data-error="Choose a date from today onwards" data-error-target="date-error"
+                     aria-describedby="date-hint date-error">
+              <p id="date-error" class="error-message"></p>
+            </div>
+            <div class="field">
+              <label for="time">Start time <span class="required-mark" aria-hidden="true">*</span></label>
+              <span id="time-hint" class="hint">Between 6:00 and 21:30, on the hour or half hour.</span>
+              <input id="time" name="time" type="time" required min="06:00" max="21:30" step="1800"
+                     data-error="Choose a start time between 6:00 and 21:30, on the hour or half hour" data-error-target="time-error"
+                     aria-describedby="time-hint time-error">
+              <p id="time-error" class="error-message"></p>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="bay">Workshop bay <span class="required-mark" aria-hidden="true">*</span></label>
+              <select id="bay" name="bay" required
+                      data-error="Choose a workshop bay" data-error-target="bay-error" aria-describedby="bay-error">
+                <option value="">Choose a bay</option>
+                <option value="4">Bay 4 (free now)</option>
+                <option value="1">Bay 1 (free from 11:30)</option>
+                <option value="3">Bay 3 (free from 10:00)</option>
+                <option value="5">Bay 5 (free from 14:00)</option>
+              </select>
+              <p id="bay-error" class="error-message"></p>
+            </div>
+            <div class="field">
+              <label for="priority">Priority</label>
+              <select id="priority" name="priority">
+                <option value="normal">Normal</option>
+                <option value="high">High: bus off route</option>
+                <option value="urgent">Urgent: safety issue</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="notes">Notes for the mechanic <span class="optional">(optional)</span></label>
+            <span id="notes-hint" class="hint">Up to 500 characters.</span>
+            <textarea id="notes" name="notes" maxlength="500" aria-describedby="notes-hint"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Your details</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" required minlength="2" maxlength="80" autocomplete="name"
+                     data-error="Enter your full name" data-error-target="name-error" aria-describedby="name-error">
+              <p id="name-error" class="error-message"></p>
+            </div>
+            <div class="field">
+              <label for="staff-id">Staff ID <span class="required-mark" aria-hidden="true">*</span></label>
+              <span id="staff-id-hint" class="hint">2 capital letters and 5 digits, e.g. KP20417.</span>
+              <input id="staff-id" class="input--short" name="staffId" type="text" required pattern="[A-Z]{2}[0-9]{5}" maxlength="7" autocomplete="off"
+                     data-error="Enter your staff ID as 2 capital letters and 5 digits, like KP20417" data-error-target="staff-id-error"
+                     aria-describedby="staff-id-hint staff-id-error">
+              <p id="staff-id-error" class="error-message"></p>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Work email <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" required autocomplete="email"
+                     data-error="Enter a work email address, like name@example.com" data-error-target="email-error"
+                     aria-describedby="email-error">
+              <p id="email-error" class="error-message"></p>
+            </div>
+            <div class="field">
+              <label for="phone">Mobile number <span class="optional">(optional)</span></label>
+              <span id="phone-hint" class="hint">10 digits, starting with 6, 7, 8 or 9.</span>
+              <input id="phone" name="phone" type="tel" pattern="[6-9][0-9]{9}" maxlength="10" autocomplete="tel" inputmode="numeric"
+                     data-error="Enter a 10-digit mobile number starting with 6, 7, 8 or 9" data-error-target="phone-error"
+                     aria-describedby="phone-hint phone-error">
+              <p id="phone-error" class="error-message"></p>
+            </div>
+          </div>
+          <div class="field">
+            <div class="choice">
+              <input id="confirm" name="confirm" type="checkbox" required
+                     data-error="Confirm the bus has been taken off its route" data-error-target="confirm-error"
+                     aria-describedby="confirm-error">
+              <label for="confirm">I confirm this bus has been taken off its route <span class="required-mark" aria-hidden="true">*</span></label>
+            </div>
+            <p id="confirm-error" class="error-message"></p>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button class="button" type="submit">Schedule maintenance</button>
+          <button class="button button--quiet" type="reset">Clear form</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Depot Console, internal tool for depot staff. Data shown is sample data.</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="index.html#accessibility">Accessibility statement</a></li>
+        <li><a href="maintenance.html">Report a fault</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+  <script src="components/sidebar.js" defer></script>
+  <script src="components/form-validation.js" defer></script>
+</body>
+</html>

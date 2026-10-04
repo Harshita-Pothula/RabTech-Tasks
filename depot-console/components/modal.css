@@ -1,0 +1,24 @@
+/* ==========================================================
+   Modal dialog (native <dialog>)
+   ========================================================== */
+.modal {
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 0;
+  border-top: 6px solid var(--signal);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 20px 50px rgba(20, 24, 28, 0.35);
+}
+.modal::backdrop { background: rgba(28, 31, 34, 0.6); }
+.modal__body { padding: 1.5rem; }
+.modal__body h2 { font-size: var(--step-2); }
+.modal__actions {
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--line);
+  background: #f6f7f8;
+}
+.modal--alert { border-top-color: var(--overdue); }

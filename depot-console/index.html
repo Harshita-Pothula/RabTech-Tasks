@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview | Depot Console</title>
+  <meta name="description" content="Depot Console: maintenance dashboard for the Kukatpally bus depot.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="components/base.css">
+  <link rel="stylesheet" href="components/layout.css">
+  <link rel="stylesheet" href="components/data-table.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand__name">Depot Console</span>
+      <span class="brand__depot">Kukatpally bus depot</span>
+    </a>
+
+    <button class="button sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+
+    <form class="header-search" role="search" action="vehicles.html" method="get">
+      <label class="visually-hidden" for="site-search">Search vehicles by registration number</label>
+      <input id="site-search" name="q" type="search" placeholder="e.g. TG09 Z 4127" autocomplete="off">
+      <button class="button" type="submit">Search</button>
+    </form>
+
+    <p class="signed-in">Signed in as R. Kiran, shift supervisor</p>
+  </header>
+
+  <div class="shell">
+    <aside id="sidebar" class="sidebar">
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html" aria-current="page">Overview</a></li>
+          <li><a href="vehicles.html">Fleet</a></li>
+          <li><a href="maintenance.html">Schedule maintenance</a></li>
+        </ul>
+      </nav>
+
+      <section class="sidebar-note" aria-labelledby="depot-hours-heading">
+        <h2 id="depot-hours-heading">Workshop hours</h2>
+        <p>Open <time datetime="06:00">6:00</time> to <time datetime="22:00">22:00</time>. Breakdowns outside these hours go to the night duty line.</p>
+      </section>
+    </aside>
+
+    <main id="main" tabindex="-1">
+      <h1>Depot overview</h1>
+      <p class="page-intro">Sunday <time datetime="2026-10-04">4 October 2026</time>, morning shift</p>
+
+      <section aria-labelledby="glance-heading">
+        <h2 id="glance-heading">Today at a glance</h2>
+        <dl class="figures">
+          <div><dt>Buses on route</dt><dd>84</dd></div>
+          <div><dt>Buses in the workshop</dt><dd>5</dd></div>
+          <div><dt>Inspections due this week</dt><dd>12</dd></div>
+          <div><dt>Overdue inspections</dt><dd>2</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="bays-heading">
+        <h2 id="bays-heading">Workshop bays</h2>
+        <p>Six bays. A bus stays in its bay until the job is signed off.</p>
+        <ol class="bays">
+          <li class="bay">
+            <span class="bay__number" aria-hidden="true">1</span>
+            <h3><span class="visually-hidden">Bay 1: </span>TG09 Z 4127</h3>
+            <p>Brake inspection, ready by <time datetime="2026-10-04T11:30">11:30</time></p>
+          </li>
+          <li class="bay">
+            <span class="bay__number" aria-hidden="true">2</span>
+            <h3><span class="visually-hidden">Bay 2: </span>TG09 Z 3381</h3>
+            <p>Engine repair, waiting for parts</p>
+          </li>
+          <li class="bay">
+            <span class="bay__number" aria-hidden="true">3</span>
+            <h3><span class="visually-hidden">Bay 3: </span>TG09 Z 5502</h3>
+            <p>Tyre replacement, ready by <time datetime="2026-10-04T10:00">10:00</time></p>
+          </li>
+          <li class="bay bay--empty">
+            <span class="bay__number" aria-hidden="true">4</span>
+            <h3><span class="visually-hidden">Bay 4: </span>Free</h3>
+            <p><a href="maintenance.html">Schedule a job in this bay</a></p>
+          </li>
+          <li class="bay">
+            <span class="bay__number" aria-hidden="true">5</span>
+            <h3><span class="visually-hidden">Bay 5: </span>TG09 Z 2210</h3>
+            <p>Routine service, ready by <time datetime="2026-10-04T14:00">14:00</time></p>
+          </li>
+          <li class="bay">
+            <span class="bay__number" aria-hidden="true">6</span>
+            <h3><span class="visually-hidden">Bay 6: </span>TG09 Z 6014</h3>
+            <p>Battery replacement, ready by <time datetime="2026-10-04T12:15">12:15</time></p>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="inspections-heading">
+        <h2 id="inspections-heading" class="visually-hidden">Inspections</h2>
+        <div class="table-wrap" role="region" aria-labelledby="inspections-caption" tabindex="0">
+          <table class="data-table">
+            <caption id="inspections-caption">
+              Inspections due this week
+              <p>Sorted by due date, earliest first.</p>
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Registration</th>
+                <th scope="col">Inspection</th>
+                <th scope="col">Due</th>
+                <th scope="col" class="num">Odometer (km)</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">TG09 Z 1873</th>
+                <td>Brakes</td>
+                <td><time datetime="2026-10-01">1 Oct</time></td>
+                <td class="num">212,480</td>
+                <td><span class="status status--overdue">Overdue</span></td>
+              </tr>
+              <tr>
+                <th scope="row">TG09 Z 0942</th>
+                <td>Fire extinguisher</td>
+                <td><time datetime="2026-10-03">3 Oct</time></td>
+                <td class="num">188,015</td>
+                <td><span class="status status--overdue">Overdue</span></td>
+              </tr>
+              <tr>
+                <th scope="row">TG09 Z 4127</th>
+                <td>Brakes</td>
+                <td><time datetime="2026-10-04">4 Oct</time></td>
+                <td class="num">143,902</td>
+                <td><span class="status status--due">In workshop</span></td>
+              </tr>
+              <tr>
+                <th scope="row">TG09 Z 7730</th>
+                <td>Fitness certificate</td>
+                <td><time datetime="2026-10-07">7 Oct</time></td>
+                <td class="num">97,260</td>
+                <td><span class="status status--ok">Booked</span></td>
+              </tr>
+              <tr>
+                <th scope="row">TG09 Z 5115</th>
+                <td>Emission test</td>
+                <td><time datetime="2026-10-09">9 Oct</time></td>
+                <td class="num">121,644</td>
+                <td><span class="status status--due">Not booked</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="notes-heading">
+        <h2 id="notes-heading">Shift notes</h2>
+        <div class="notes">
+          <article class="note">
+            <header>
+              <h3>Brake pads delivery delayed</h3>
+              <p>Posted by S. Anand at <time datetime="2026-10-04T06:40">6:40</time></p>
+            </header>
+            <p>The supplier has moved delivery to Tuesday. Bay 2 will stay occupied until then. Use bays 4 and 5 for new jobs.</p>
+          </article>
+          <article class="note">
+            <header>
+              <h3>Night shift handover</h3>
+              <p>Posted by M. Rao at <time datetime="2026-10-04T05:55">5:55</time></p>
+            </header>
+            <p>TG09 Z 6014 would not start on the forecourt. Battery swap booked for bay 6 this morning.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="accessibility" aria-labelledby="a11y-heading">
+        <h2 id="a11y-heading">Accessibility statement</h2>
+        <p>Depot Console aims to meet WCAG 2.1 level AA. Every page works with a keyboard alone and with screen readers. If something does not work for you, tell the depot IT desk.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Depot Console, internal tool for depot staff. Data shown is sample data.</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="index.html#accessibility">Accessibility statement</a></li>
+        <li><a href="maintenance.html">Report a fault</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+  <script src="components/sidebar.js" defer></script>
+</body>
+</html>

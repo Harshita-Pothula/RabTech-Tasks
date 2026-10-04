@@ -1,0 +1,113 @@
+/* ==========================================================
+   Base: design tokens, reset, typography, focus, utilities
+   ========================================================== */
+:root {
+  --asphalt: #23272b;     /* header, primary buttons */
+  --ink: #1c1f22;         /* body text */
+  --paper: #fbfbf8;       /* page background */
+  --panel: #ffffff;       /* content surfaces */
+  --line: #d5d8dc;        /* borders */
+  --muted: #545b63;       /* secondary text, 7:1 on white */
+  --signal: #f2b705;      /* depot marking yellow: accents only, never text on white */
+  --ok: #1e6b3f;
+  --due: #7a4f00;
+  --overdue: #a3231b;
+
+  --font: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.1rem;
+  --space: 1rem;
+  --radius-small: 3px;
+  --radius-panel: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  font-variant-numeric: tabular-nums; /* numbers line up in tables and figures */
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5em; }
+h1 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: var(--step-2); font-weight: 650; }
+h3 { font-size: var(--step-1); font-weight: 600; }
+p { margin: 0 0 1em; max-width: 70ch; }
+
+a { color: #0a4f8f; text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* Focus: dark ring + yellow halo, visible on both light and dark surfaces (WCAG 2.4.7) */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--signal);
+}
+
+/* Skip link (WCAG 2.4.1) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--signal);
+  color: var(--ink);
+  font-weight: 700;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Hidden visually, still read by screen readers */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;           /* touch target */
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  border-radius: var(--radius-small);
+  border: 2px solid var(--asphalt);
+  background: var(--asphalt);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.button--quiet { background: transparent; color: var(--ink); }
+.button--danger { background: var(--overdue); border-color: var(--overdue); }
+.button--small { min-height: 36px; padding: 0.3rem 0.7rem; font-size: var(--step--1); }
+
+/* Status labels: text + shape, never colour alone (WCAG 1.4.1) */
+.status { font-weight: 600; white-space: nowrap; }
+.status::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.4em; vertical-align: 0.05em; }
+.status--ok { color: var(--ok); }
+.status--ok::before { background: var(--ok); border-radius: 50%; }
+.status--due { color: var(--due); }
+.status--due::before { background: var(--due); transform: rotate(45deg); }
+.status--overdue { color: var(--overdue); }
+.status--overdue::before { background: var(--overdue); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

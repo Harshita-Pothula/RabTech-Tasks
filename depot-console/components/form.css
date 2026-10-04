@@ -1,0 +1,65 @@
+/* ==========================================================
+   Form controls
+   ========================================================== */
+.form { max-width: 46rem; }
+
+.form fieldset {
+  margin: 0 0 1.5rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+}
+.form legend { padding: 0 0.4rem; font-weight: 700; font-size: var(--step-1); }
+.fieldset-hint { margin: 0 0 0.75rem; color: var(--muted); font-size: var(--step--1); }
+
+.field { margin-top: 1rem; }
+.field:first-of-type { margin-top: 0.25rem; }
+.field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0 1.25rem; }
+
+.form label, .label { display: block; font-weight: 600; }
+.required-mark { color: var(--overdue); font-weight: 700; }
+.optional { color: var(--muted); font-weight: 400; }
+.hint { display: block; margin: 0.15rem 0 0.35rem; color: var(--muted); font-size: var(--step--1); }
+
+.form input:not([type="radio"]):not([type="checkbox"]),
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid #6b737b;   /* 4.7:1 against white, meets 1.4.11 non-text contrast */
+  border-radius: var(--radius-small);
+}
+.form textarea { min-height: 7rem; resize: vertical; }
+.form .input--short { max-width: 12rem; }
+
+/* Radios and checkboxes */
+.choices { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.choice { display: flex; align-items: flex-start; gap: 0.6rem; }
+.choice input { width: 1.25rem; height: 1.25rem; margin: 0.15rem 0 0; accent-color: var(--asphalt); flex: none; }
+.choice label { font-weight: 500; }
+
+/* Errors */
+.error-message { margin: 0.3rem 0 0; color: var(--overdue); font-weight: 700; font-size: var(--step--1); }
+.error-message:empty { display: none; }
+.form [aria-invalid="true"] { border-color: var(--overdue) !important; border-width: 3px !important; }
+fieldset.has-error { border: 2px solid var(--overdue); }
+
+.error-summary {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--overdue);
+  border-radius: var(--radius-panel);
+  background: #fff;
+}
+.error-summary[hidden] { display: none; }
+.error-summary h2 { font-size: var(--step-1); color: var(--overdue); }
+.error-summary ul { margin: 0; padding-left: 1.2rem; }
+.error-summary a { color: var(--overdue); font-weight: 600; }
+
+.form-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
