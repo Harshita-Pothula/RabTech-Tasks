@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopfront | Products</title>
+  <meta name="description" content="Product catalogue built on FakeStoreAPI with live search, category tabs, sorting and a saved cart.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://fakestoreapi.com" crossorigin>
+  <link rel="preload" href="fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./">
+      <span class="brand__name">Shopfront</span>
+      <span class="brand__tag">Sample store on FakeStoreAPI</span>
+    </a>
+
+    <form class="header-search" role="search" action="./" method="get">
+      <label class="visually-hidden" for="search">Search products</label>
+      <input id="search" name="q" type="search" placeholder="Search products" autocomplete="off" spellcheck="false" aria-describedby="search-hint">
+      <span id="search-hint" class="visually-hidden">Results update as you type. Press slash to jump here.</span>
+    </form>
+
+    <div class="header-actions">
+      <button class="button button--ghost theme-toggle" type="button" aria-pressed="false"><span class="theme-toggle__label">Dark theme</span></button>
+      <button id="cart-button" class="button cart-button" type="button" aria-haspopup="dialog">
+        Cart <span id="cart-count" class="cart-count" data-empty="true">0</span><span class="visually-hidden" data-cart-label> items</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="page-head">
+      <h1>Products</h1>
+      <p id="results-status" class="results-status" role="status" aria-live="polite">Loading products…</p>
+    </div>
+
+    <div id="banner" class="banner" hidden></div>
+
+    <div class="toolbar">
+      <div id="category-tabs" class="tabs" role="tablist" aria-label="Product categories"></div>
+      <div class="sort">
+        <label for="sort">Sort by</label>
+        <select id="sort" name="sort">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="rating">Top rated</option>
+          <option value="title-asc">Name: A to Z</option>
+        </select>
+      </div>
+    </div>
+
+    <section id="product-panel" class="product-panel" role="tabpanel" aria-labelledby="tab-all" aria-busy="true">
+      <h2 class="visually-hidden">Product list</h2>
+      <ul id="product-grid" class="product-grid"></ul>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <p class="empty-state__title" data-empty-message>No products match your search.</p>
+        <p>Try a shorter word, check the spelling, or look in another category.</p>
+        <div class="empty-state__actions">
+          <button class="button" type="button" data-clear-search>Clear search</button>
+          <button class="button button--quiet" type="button" data-show-all>Show all categories</button>
+        </div>
+      </div>
+    </section>
+
+    <noscript>
+      <p class="banner banner--error">This store needs JavaScript to load products. Turn it on and reload the page.</p>
+    </noscript>
+  </main>
+
+  <dialog id="cart-dialog" class="modal cart" aria-labelledby="cart-title">
+    <div class="modal__body">
+      <div class="cart__head">
+        <h2 id="cart-title" tabindex="-1">Your cart</h2>
+        <button class="button button--quiet button--small" type="button" data-close-dialog>Close</button>
+      </div>
+      <p id="cart-empty" class="cart__empty">Your cart is empty. Add products and they'll be saved on this device.</p>
+      <ul id="cart-items" class="cart__items"></ul>
+    </div>
+    <div id="cart-footer" class="modal__actions cart__footer" hidden>
+      <p class="cart__total">Total <strong id="cart-total">$0.00</strong></p>
+      <button class="button button--quiet" type="button" data-empty-cart>Empty cart</button>
+      <button class="button" type="button" data-close-dialog>Continue shopping</button>
+    </div>
+  </dialog>
+
+  <p id="announcer" class="visually-hidden" aria-live="polite"></p>
+
+  <footer class="site-footer">
+    <p>Product data from <a href="https://fakestoreapi.com/">FakeStoreAPI</a>. Prices are sample data.</p>
+    <p>Your cart and view preferences are saved on this device. <button class="link-button" type="button" data-reset-saved>Clear saved data</button></p>
+  </footer>
+</body>
+</html>
