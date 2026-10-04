@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fleet | Depot Console</title>
+  <meta name="description" content="Depot Console: maintenance dashboard for the Kukatpally bus depot.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preload" href="fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand__name">Depot Console</span>
+      <span class="brand__depot">Kukatpally bus depot</span>
+    </a>
+
+    <div class="header-actions">
+      <button class="button button--ghost theme-toggle" type="button" aria-pressed="false"><span class="theme-toggle__label">Dark theme</span></button>
+      <button class="button button--ghost sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+    </div>
+
+    <form class="header-search" role="search" action="vehicles.html" method="get">
+      <label class="visually-hidden" for="site-search">Search vehicles by registration number</label>
+      <input id="site-search" name="q" type="search" placeholder="e.g. TG09 Z 4127" autocomplete="off">
+      <button class="button" type="submit">Search</button>
+    </form>
+
+    <p class="signed-in">Signed in as R. Kiran, shift supervisor</p>
+  </header>
+
+  <div class="shell">
+    <aside id="sidebar" class="sidebar">
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="vehicles.html" aria-current="page">Fleet</a></li>
+          <li><a href="maintenance.html">Schedule maintenance</a></li>
+        </ul>
+      </nav>
+
+      <section class="sidebar-note" aria-labelledby="depot-hours-heading">
+        <h2 id="depot-hours-heading">Workshop hours</h2>
+        <p>Open <time datetime="06:00">6:00</time> to <time datetime="22:00">22:00</time>. Breakdowns outside these hours go to the night duty line.</p>
+      </section>
+    </aside>
+
+    <main id="main" tabindex="-1">
+      <div class="page-actions">
+        <h1>Fleet</h1>
+        <button class="button" type="button" data-open-dialog="repair-dialog">Log a repair</button>
+      </div>
+      <p class="page-intro">6 buses shown. Select a bus's actions to log a repair or retire it from service.</p>
+
+      <p id="page-status" class="toast" role="status"></p>
+
+      <section aria-labelledby="fleet-heading">
+        <h2 id="fleet-heading" class="visually-hidden">Bus list</h2>
+        <div class="table-wrap" role="region" aria-labelledby="fleet-caption" tabindex="0">
+          <table class="data-table data-table--wide">
+            <caption id="fleet-caption">
+              All buses at Kukatpally depot
+              <p>Buses with overdue inspections are listed first.</p>
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Registration</th>
+                <th scope="col">Model</th>
+                <th scope="col">Route</th>
+                <th scope="col" class="num">Odometer (km)</th>
+                <th scope="col">Last service</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+<tr>
+<th scope="row">TG09 Z 1873</th>
+<td data-label="Model">Ashok Leyland Viking</td>
+<td data-label="Route">10H</td>
+<td class="num" data-label="Odometer (km)">212,480</td>
+<td data-label="Last service"><time datetime="2026-08-02">2 Aug</time></td>
+<td data-label="Status"><span class="status status--overdue">Inspection overdue</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 1873" type="button">Log repair<span class="visually-hidden"> for TG09 Z 1873</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 1873" type="button">Retire<span class="visually-hidden"> TG09 Z 1873</span></button>
+</td>
+</tr>
+<tr>
+<th scope="row">TG09 Z 0942</th>
+<td data-label="Model">Tata Starbus</td>
+<td data-label="Route">47L</td>
+<td class="num" data-label="Odometer (km)">188,015</td>
+<td data-label="Last service"><time datetime="2026-08-19">19 Aug</time></td>
+<td data-label="Status"><span class="status status--overdue">Inspection overdue</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 0942" type="button">Log repair<span class="visually-hidden"> for TG09 Z 0942</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 0942" type="button">Retire<span class="visually-hidden"> TG09 Z 0942</span></button>
+</td>
+</tr>
+<tr>
+<th scope="row">TG09 Z 4127</th>
+<td data-label="Model">Ashok Leyland Viking</td>
+<td data-label="Route">216</td>
+<td class="num" data-label="Odometer (km)">143,902</td>
+<td data-label="Last service"><time datetime="2026-09-10">10 Sep</time></td>
+<td data-label="Status"><span class="status status--due">In workshop</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 4127" type="button">Log repair<span class="visually-hidden"> for TG09 Z 4127</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 4127" type="button">Retire<span class="visually-hidden"> TG09 Z 4127</span></button>
+</td>
+</tr>
+<tr>
+<th scope="row">TG09 Z 3381</th>
+<td data-label="Model">Eicher Skyline</td>
+<td data-label="Route">18C</td>
+<td class="num" data-label="Odometer (km)">176,330</td>
+<td data-label="Last service"><time datetime="2026-07-28">28 Jul</time></td>
+<td data-label="Status"><span class="status status--due">In workshop</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 3381" type="button">Log repair<span class="visually-hidden"> for TG09 Z 3381</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 3381" type="button">Retire<span class="visually-hidden"> TG09 Z 3381</span></button>
+</td>
+</tr>
+<tr>
+<th scope="row">TG09 Z 7730</th>
+<td data-label="Model">Olectra eBus</td>
+<td data-label="Route">290U</td>
+<td class="num" data-label="Odometer (km)">97,260</td>
+<td data-label="Last service"><time datetime="2026-09-22">22 Sep</time></td>
+<td data-label="Status"><span class="status status--ok">On route</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 7730" type="button">Log repair<span class="visually-hidden"> for TG09 Z 7730</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 7730" type="button">Retire<span class="visually-hidden"> TG09 Z 7730</span></button>
+</td>
+</tr>
+<tr>
+<th scope="row">TG09 Z 5115</th>
+<td data-label="Model">Tata Starbus</td>
+<td data-label="Route">127K</td>
+<td class="num" data-label="Odometer (km)">121,644</td>
+<td data-label="Last service"><time datetime="2026-09-05">5 Sep</time></td>
+<td data-label="Status"><span class="status status--ok">On route</span></td>
+<td class="actions" data-label="Actions">
+<button class="button button--quiet button--small" data-open-dialog="repair-dialog" data-vehicle="TG09 Z 5115" type="button">Log repair<span class="visually-hidden"> for TG09 Z 5115</span></button>
+<button class="button button--quiet button--small" data-open-dialog="retire-dialog" data-vehicle="TG09 Z 5115" type="button">Retire<span class="visually-hidden"> TG09 Z 5115</span></button>
+</td>
+</tr>
+</tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal 1: log a repair (form inside a dialog) -->
+    <dialog id="repair-dialog" class="modal" aria-labelledby="repair-title">
+      <form method="dialog" class="form" novalidate data-validate data-success-message="Repair logged for {vehicle}.">
+        <div class="modal__body">
+          <h2 id="repair-title">Log a repair</h2>
+
+          <div class="error-summary" tabindex="-1" hidden>
+            <h2>Fix these before saving</h2>
+            <ul></ul>
+          </div>
+
+          <div class="field">
+            <label for="repair-vehicle">Bus <span class="required-mark" aria-hidden="true">*</span></label>
+            <select id="repair-vehicle" name="vehicle" required data-vehicle-field
+                    data-error="Choose the bus that was repaired" data-error-target="repair-vehicle-error"
+                    aria-describedby="repair-vehicle-error">
+              <option value="">Choose a bus</option>
+                  <option value="TG09 Z 1873">TG09 Z 1873, Ashok Leyland Viking</option>
+                  <option value="TG09 Z 0942">TG09 Z 0942, Tata Starbus</option>
+                  <option value="TG09 Z 4127">TG09 Z 4127, Ashok Leyland Viking</option>
+                  <option value="TG09 Z 3381">TG09 Z 3381, Eicher Skyline</option>
+                  <option value="TG09 Z 7730">TG09 Z 7730, Olectra eBus</option>
+                  <option value="TG09 Z 5115">TG09 Z 5115, Tata Starbus</option>
+            </select>
+            <p id="repair-vehicle-error" class="error-message"></p>
+          </div>
+
+          <fieldset data-group>
+            <legend>What was repaired? <span class="required-mark" aria-hidden="true">*</span></legend>
+            <ul class="choices">
+              <li class="choice"><input id="area-brakes" type="radio" name="area" value="brakes" required
+                   data-error="Choose what was repaired" data-error-target="area-error" aria-describedby="area-error"><label for="area-brakes">Brakes</label></li>
+              <li class="choice"><input id="area-engine" type="radio" name="area" value="engine" aria-describedby="area-error"><label for="area-engine">Engine</label></li>
+              <li class="choice"><input id="area-electrical" type="radio" name="area" value="electrical" aria-describedby="area-error"><label for="area-electrical">Electrical</label></li>
+              <li class="choice"><input id="area-body" type="radio" name="area" value="body" aria-describedby="area-error"><label for="area-body">Body and doors</label></li>
+            </ul>
+            <p id="area-error" class="error-message"></p>
+          </fieldset>
+
+          <div class="field">
+            <label for="repair-notes">What was done <span class="required-mark" aria-hidden="true">*</span></label>
+            <span id="repair-notes-hint" class="hint">At least 10 characters, so the next shift understands.</span>
+            <textarea id="repair-notes" name="notes" required minlength="10" maxlength="500"
+                      data-error="Describe the repair in at least 10 characters" data-error-target="repair-notes-error"
+                      aria-describedby="repair-notes-hint repair-notes-error"></textarea>
+            <p id="repair-notes-error" class="error-message"></p>
+          </div>
+
+          <div class="field">
+            <label for="repair-hours">Labour hours <span class="required-mark" aria-hidden="true">*</span></label>
+            <span id="repair-hours-hint" class="hint">Between 0.5 and 24, in half hours.</span>
+            <input id="repair-hours" class="input--short" name="hours" type="number" required min="0.5" max="24" step="0.5" inputmode="decimal"
+                   data-error="Enter labour hours between 0.5 and 24, in half hours" data-error-target="repair-hours-error"
+                   aria-describedby="repair-hours-hint repair-hours-error">
+            <p id="repair-hours-error" class="error-message"></p>
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="button button--quiet" type="button" data-close-dialog>Cancel</button>
+          <button class="button" type="submit" value="save">Save repair</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Modal 2: confirm retiring a bus -->
+    <dialog id="retire-dialog" class="modal modal--alert" role="alertdialog"
+            aria-labelledby="retire-title" aria-describedby="retire-desc"
+            data-confirm-message="{vehicle} has been retired from service.">
+      <form method="dialog">
+        <div class="modal__body">
+          <h2 id="retire-title">Retire <span data-vehicle-field>this bus</span>?</h2>
+          <p id="retire-desc">It will be removed from route planning and the inspection schedule. Its repair history is kept.</p>
+        </div>
+        <div class="modal__actions">
+          <button class="button button--quiet" type="submit" value="cancel">Keep in service</button>
+          <button class="button button--danger" type="submit" value="confirm">Retire bus</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <footer class="site-footer">
+    <p>Depot Console, internal tool for depot staff. Data shown is sample data.</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="index.html#accessibility">Accessibility statement</a></li>
+        <li><a href="maintenance.html">Report a fault</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+  <script src="js/sidebar.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/form-validation.js" defer></script>
+</body>
+</html>
